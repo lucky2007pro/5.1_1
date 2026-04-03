@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Delete user{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Delete user</h1>
+        <p class="muted">This action cannot be undone.</p>
+    </div>
+</div>
+
+<div class="card">
+    <p>Are you sure you want to delete <strong>{{ user.full_name }}</strong>?</p>
+    <form method="post" class="footer-actions">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit">Yes, delete</button>
+        <a class="btn btn-light" href="{% url 'user_detail' user.id %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

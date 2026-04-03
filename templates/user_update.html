@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Update user{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Update user</h1>
+        <p class="muted">Edit student details and assigned course.</p>
+    </div>
+    <a class="btn btn-light" href="{% url 'user_detail' user.id %}">Back to details</a>
+</div>
+
+<div class="card">
+    <form class="form" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label for="id_full_name">Full name</label>
+            <input id="id_full_name" type="text" name="full_name" value="{{ user.full_name }}" required>
+        </div>
+        <div class="field">
+            <label for="id_birth_date">Birth date</label>
+            <input id="id_birth_date" type="date" name="birth_date" value="{{ user.birth_date|date:'Y-m-d' }}" required>
+        </div>
+        <div class="field">
+            <label for="id_start_date">Start date</label>
+            <input id="id_start_date" type="date" name="start_date" value="{{ user.start_date|date:'Y-m-d' }}" required>
+        </div>
+        <div class="field">
+            <label for="id_end_date">End date</label>
+            <input id="id_end_date" type="date" name="end_date" value="{{ user.end_date|date:'Y-m-d' }}" required>
+        </div>
+        <div class="field">
+            <label for="id_course">Course</label>
+            <select id="id_course" name="course_id" required>
+                {% for course in courses %}
+                <option value="{{ course.id }}" {% if user.course_id == course.id %}selected{% endif %}>{{ course.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="footer-actions">
+            <button class="btn btn-primary" type="submit">Update user</button>
+            <a class="btn btn-light" href="{% url 'user_detail' user.id %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

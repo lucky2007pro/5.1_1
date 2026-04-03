@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Category detail{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>{{ category.name }}</h1>
+        <p class="muted">Category details and related courses.</p>
+    </div>
+</div>
+
+<div class="card" style="margin-bottom: 16px;">
+    <dl class="details">
+        <dt>Name</dt>
+        <dd>{{ category.name }}</dd>
+
+        <dt>Description</dt>
+        <dd>{{ category.category_description }}</dd>
+
+        <dt>Created at</dt>
+        <dd>{{ category.created_at }}</dd>
+
+        <dt>Updated at</dt>
+        <dd>{{ category.updated_at }}</dd>
+    </dl>
+    <div class="footer-actions">
+        <a class="btn btn-light" href="{% url 'category_list' %}">Back to list</a>
+        <a class="btn btn-primary" href="{% url 'category_update' category.id %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'category_delete' category.id %}">Delete</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Courses in this category</h3>
+    {% if courses %}
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.course_description|truncatechars:80 }}</td>
+                    <td><a href="{% url 'course_detail' course.id %}">Open</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">No courses assigned to this category yet.</div>
+    {% endif %}
+</div>
+{% endblock %}

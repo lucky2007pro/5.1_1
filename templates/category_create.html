@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Create category{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Create category</h1>
+        <p class="muted">Add a new course category.</p>
+    </div>
+    <a class="btn btn-light" href="{% url 'category_list' %}">Back to categories</a>
+</div>
+
+<div class="card">
+    <form class="form" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label for="id_name">Category name</label>
+            <input id="id_name" type="text" name="name" required>
+        </div>
+        <div class="field">
+            <label for="id_category_description">Description</label>
+            <textarea id="id_category_description" name="category_description" required></textarea>
+        </div>
+        <div class="footer-actions">
+            <button class="btn btn-primary" type="submit">Save category</button>
+            <a class="btn btn-light" href="{% url 'category_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Courses</h1>
+        <p class="muted">Manage all courses in one place.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'course_create' %}">+ Add course</a>
+</div>
+
+{% if courses %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Media</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ course.name }}</td>
+                <td>{{ course.category }}</td>
+                <td>{{ course.course_description|truncatechars:90 }}</td>
+                <td>
+                    {% if course.media %}
+                        <a href="{{ course.media.url }}" target="_blank" rel="noopener">View file</a>
+                    {% else %}
+                        <span class="muted">No file</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="actions">
+                        <a class="btn btn-light" href="{% url 'course_detail' course.id %}">View</a>
+                        <a class="btn btn-light" href="{% url 'course_update' course.id %}">Edit</a>
+                        <a class="btn btn-danger" href="{% url 'course_delete' course.id %}">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <p>No courses have been added yet.</p>
+    <a class="btn btn-primary" href="{% url 'course_create' %}">Create the first course</a>
+</div>
+{% endif %}
+{% endblock %}

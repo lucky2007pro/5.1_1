@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Course detail{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>{{ course.name }}</h1>
+        <p class="muted">Course details page.</p>
+    </div>
+    <span class="badge">Category: {{ course.category }}</span>
+</div>
+
+<div class="card">
+    <dl class="details">
+        <dt>Name</dt>
+        <dd>{{ course.name }}</dd>
+
+        <dt>Description</dt>
+        <dd>{{ course.course_description }}</dd>
+
+        <dt>Category</dt>
+        <dd>{{ course.category }}</dd>
+
+        <dt>Media</dt>
+        <dd>
+            {% if course.media %}
+                <a href="{{ course.media.url }}" target="_blank" rel="noopener">Open file</a>
+            {% else %}
+                <span class="muted">No file uploaded.</span>
+            {% endif %}
+        </dd>
+
+        <dt>Created at</dt>
+        <dd>{{ course.created_at }}</dd>
+
+        <dt>Updated at</dt>
+        <dd>{{ course.updated_at }}</dd>
+    </dl>
+
+    <div class="footer-actions">
+        <a class="btn btn-light" href="{% url 'course_list' %}">Back to list</a>
+        <a class="btn btn-primary" href="{% url 'course_update' course.id %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'course_delete' course.id %}">Delete</a>
+    </div>
+</div>
+{% endblock %}

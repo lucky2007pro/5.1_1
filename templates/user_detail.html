@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}User detail{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>{{ user.full_name }}</h1>
+        <p class="muted">Student profile details.</p>
+    </div>
+    <span class="badge">Course: {{ user.course }}</span>
+</div>
+
+<div class="card">
+    <dl class="details">
+        <dt>Full name</dt>
+        <dd>{{ user.full_name }}</dd>
+
+        <dt>Birth date</dt>
+        <dd>{{ user.birth_date }}</dd>
+
+        <dt>Start date</dt>
+        <dd>{{ user.start_date }}</dd>
+
+        <dt>End date</dt>
+        <dd>{{ user.end_date }}</dd>
+
+        <dt>Course</dt>
+        <dd>{{ user.course }}</dd>
+
+        <dt>Created at</dt>
+        <dd>{{ user.created_at }}</dd>
+
+        <dt>Updated at</dt>
+        <dd>{{ user.updated_at }}</dd>
+    </dl>
+
+    <div class="footer-actions">
+        <a class="btn btn-light" href="{% url 'user_list' %}">Back to list</a>
+        <a class="btn btn-primary" href="{% url 'user_update' user.id %}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'user_delete' user.id %}">Delete</a>
+    </div>
+</div>
+{% endblock %}

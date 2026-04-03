@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Update category{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Update category</h1>
+        <p class="muted">Edit category information.</p>
+    </div>
+    <a class="btn btn-light" href="{% url 'category_detail' category.id %}">Back to details</a>
+</div>
+
+<div class="card">
+    <form class="form" method="post">
+        {% csrf_token %}
+        <div class="field">
+            <label for="id_name">Category name</label>
+            <input id="id_name" type="text" name="name" value="{{ category.name }}" required>
+        </div>
+        <div class="field">
+            <label for="id_category_description">Description</label>
+            <textarea id="id_category_description" name="category_description" required>{{ category.category_description }}</textarea>
+        </div>
+        <div class="footer-actions">
+            <button class="btn btn-primary" type="submit">Update category</button>
+            <a class="btn btn-light" href="{% url 'category_detail' category.id %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

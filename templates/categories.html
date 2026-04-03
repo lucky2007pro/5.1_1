@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Categories</h1>
+        <p class="muted">Group courses into clear learning categories.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'category_create' %}">+ Add category</a>
+</div>
+
+{% if categories %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.category_description|truncatechars:110 }}</td>
+                <td>
+                    <div class="actions">
+                        <a class="btn btn-light" href="{% url 'category_detail' category.id %}">View</a>
+                        <a class="btn btn-light" href="{% url 'category_update' category.id %}">Edit</a>
+                        <a class="btn btn-danger" href="{% url 'category_delete' category.id %}">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <p>No categories have been added yet.</p>
+    <a class="btn btn-primary" href="{% url 'category_create' %}">Create the first category</a>
+</div>
+{% endif %}
+{% endblock %}

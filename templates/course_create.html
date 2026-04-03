@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Create course{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Create course</h1>
+        <p class="muted">Add a new course and assign it to a category.</p>
+    </div>
+    <a class="btn btn-light" href="{% url 'course_list' %}">Back to courses</a>
+</div>
+
+<div class="card">
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field">
+            <label for="id_name">Course name</label>
+            <input id="id_name" type="text" name="name" required>
+        </div>
+        <div class="field">
+            <label for="id_course_description">Description</label>
+            <textarea id="id_course_description" name="course_description" required></textarea>
+        </div>
+        <div class="field">
+            <label for="id_category">Category</label>
+            <select id="id_category" name="category_id" required>
+                <option value="">Select a category</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="id_media">Course file</label>
+            <input id="id_media" type="file" name="media" required>
+        </div>
+        <div class="footer-actions">
+            <button class="btn btn-primary" type="submit">Save course</button>
+            <a class="btn btn-light" href="{% url 'course_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

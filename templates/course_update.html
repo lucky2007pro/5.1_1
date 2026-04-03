@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Update course{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Update course</h1>
+        <p class="muted">Edit the course information below.</p>
+    </div>
+    <a class="btn btn-light" href="{% url 'course_detail' course.id %}">Back to details</a>
+</div>
+
+<div class="card">
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field">
+            <label for="id_name">Course name</label>
+            <input id="id_name" type="text" name="name" value="{{ course.name }}" required>
+        </div>
+        <div class="field">
+            <label for="id_course_description">Description</label>
+            <textarea id="id_course_description" name="course_description" required>{{ course.course_description }}</textarea>
+        </div>
+        <div class="field">
+            <label for="id_category">Category</label>
+            <select id="id_category" name="category_id" required>
+                {% for category in categories %}
+                <option value="{{ category.id }}" {% if course.category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="id_media">Replace file</label>
+            <input id="id_media" type="file" name="media">
+            {% if course.media %}
+            <small class="muted">Current file: <a href="{{ course.media.url }}" target="_blank" rel="noopener">{{ course.media.name }}</a></small>
+            {% endif %}
+        </div>
+        <div class="footer-actions">
+            <button class="btn btn-primary" type="submit">Update course</button>
+            <a class="btn btn-light" href="{% url 'course_detail' course.id %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
